@@ -31,7 +31,7 @@ class sift_KeyPoints_And_Detectors:
         for point in points:
             p1, p2 = (int(point.pt[0]), int(point.pt[1])), self.getSecondPoint(point.pt, point.size, point.angle)
             cv.arrowedLine(img1, p1, p2, (255,0,0), 1)
-        # img1=cv.drawKeypoints(self.grayIMG,self.kp,None,flags=cv.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
-        cv.imwrite('_IP.jpg',img1)
-a = sift_KeyPoints_And_Detectors("UoH.JPG")
-a.drawKeyPoints(50)
+        cv.imwrite('intrestPoints.jpg',img1)
+        print("See results in intrestPoints.jpg")
+# a = sift_KeyPoints_And_Detectors("Q2/UoH.JPG")
+# a.drawKeyPoints()
