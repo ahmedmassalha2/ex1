@@ -9,8 +9,11 @@ from sift_KeyPoints_And_Detectors import sift_KeyPoints_And_Detectors
 class siftSolver:
     def __init__(self,img1Path,img2Path):
         #load both image and create ip and descriptors for both
+        startingTime = time.time()
+        print("Loading images for sift matcher\n")
         self.im1 = sift_KeyPoints_And_Detectors(img1Path)
         self.im2 = sift_KeyPoints_And_Detectors(img2Path)
+        print("Images loaded successfully, Load time:",str(time.time() - startingTime))
         
     
     def ratioTest(self):
@@ -65,7 +68,16 @@ class siftSolver:
     def bidirectionalTest(self):
         return self.initNN()
     def  matching(self, ratioOrBid = 0):
-        matches = self.bidirectionalTest()#self.ratioTest()
+        
+        startingTime = time.time() 
+        matches = []
+        if ratioOrBid == 0:
+            print("Started matching with Ratio-Test")
+            matches = self.ratioTest()
+        else:
+            print("Started matching with Bidirectional-Test")
+            matches = self.bidirectionalTest()
+            
         h1, w1 = self.im2.im.shape[:2]
         h2, w2 = self.im1.im.shape[:2]
         nWidth = w1 + w2
@@ -81,6 +93,10 @@ class siftSolver:
             cv.circle(newimg, pt1, 3, (147,20,255), -1)
             cv.circle(newimg, pt2, 3, (147,20,255), -1)
         cv.imwrite('matches.jpg', newimg)
+        cv.imshow('image',newimg)
+        cv.waitKey(0)
+        cv.destroyAllWindows()
+        print("See results in matches.jpg\nRun time: ",str(time.time() - startingTime))
         return matches
 # startingTime = time.time()           
 # # a = siftSolver("pair1_imageA.JPG", "pair1_imageB.JPG")
