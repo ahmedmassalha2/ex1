@@ -86,16 +86,15 @@ class siftSolver:
         newimg = np.zeros((nHeight, nWidth, 3), np.uint8)
         newimg[int(hdif):int(hdif)+h2, :w2] = self.im1.im
         newimg[:h1, w2:w1+w2] = self.im2.im
-        matches = random.sample(matches, 10)
-        for item in matches:
+        matches2Draw = random.sample(matches, 50)
+        for item in matches2Draw:
             pt1, pt2 = (int(item[0].pt[0]),int(item[0].pt[1] + hdif)), (int(item[1].pt[0] +w2),int(item[1].pt[1]))
             cv.line(newimg, pt1, pt2, (255, 0, 0))
             cv.circle(newimg, pt1, 3, (147,20,255), -1)
             cv.circle(newimg, pt2, 3, (147,20,255), -1)
         cv.imwrite('matches.jpg', newimg)
-        cv.imshow('image',newimg)
-        cv.waitKey(0)
-        cv.destroyAllWindows()
+        plt.imshow(newimg)
+        plt.show()
         print("See results in matches.jpg\nRun time: ",str(time.time() - startingTime))
         return matches
 # startingTime = time.time()           
