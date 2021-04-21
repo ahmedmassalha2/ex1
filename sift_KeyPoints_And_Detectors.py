@@ -3,6 +3,8 @@ import cv2 as cv
 import math
 import random
 import numpy as np
+from matplotlib import pyplot as plt
+
 import time
 class sift_KeyPoints_And_Detectors:
     def __init__(self,img1Path):
@@ -35,12 +37,14 @@ class sift_KeyPoints_And_Detectors:
             p1, p2 = (int(point.pt[0]), int(point.pt[1])), self.getSecondPoint(point.pt, point.size, point.angle)
             cv.arrowedLine(img1, p1, p2, (255,0,0), 1)
         cv.imwrite('intrestPoints.jpg',img1)
+        plt.imshow(img1)
+        plt.show()
         print("See results in intrestPoints.jpg")
         print("Drawing points time: ",str(time.time() - startingTime))
         print("============================================================")
-        cv.imshow('image',img1)
-        cv.waitKey(0)
-        cv.destroyAllWindows()
+        # cv.imshow('image',img1)
+        # cv.waitKey(0)
+        # cv.destroyAllWindows()
     
 # a = sift_KeyPoints_And_Detectors("Q2/UoH.JPG")
 # a.drawKeyPoints()
